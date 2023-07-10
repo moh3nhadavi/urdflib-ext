@@ -7,11 +7,11 @@
 
 #include "zix_config.h"
 
-#ifdef _WIN32
-#  define WIN32_LEAN_AND_MEAN
-#  include <malloc.h>
-#  include <windows.h>
-#endif
+// #ifdef _WIN32
+// #  define WIN32_LEAN_AND_MEAN
+// #  include <malloc.h>
+// #  include <windows.h>
+// #endif
 
 #include <stdlib.h>
 
@@ -56,15 +56,17 @@ zix_default_aligned_alloc(ZixAllocator* const allocator,
                           const size_t        size)
 {
   (void)allocator;
-
-#if defined(_WIN32)
-  return _aligned_malloc(size, alignment);
-#elif USE_POSIX_MEMALIGN
   void* ptr = NULL;
   return posix_memalign(&ptr, alignment, size) ? NULL : ptr;
-#else
-  return NULL;
-#endif
+
+// #if defined(_WIN32)
+//   return _aligned_malloc(size, alignment);
+// #elif USE_POSIX_MEMALIGN
+//   void* ptr = NULL;
+//   return posix_memalign(&ptr, alignment, size) ? NULL : ptr;
+// #else
+//   return NULL;
+// #endif
 }
 
 static void
