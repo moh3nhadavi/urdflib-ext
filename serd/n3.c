@@ -94,7 +94,7 @@ read_UCHAR(SerdReader* const reader, const Ref dest, uint32_t* const char_code)
   } else {
     r_err(reader,
           SERD_ERR_BAD_SYNTAX,
-          "unicode character 0x%X out of range\n",
+          "unicode character 0x%lX out of range\n",
           code);
     push_bytes(reader, dest, replacement_char, 3);
     *char_code = 0xFFFD;
@@ -476,7 +476,7 @@ read_PN_CHARS_BASE(SerdReader* const reader, const Ref dest)
 
   if (!is_PN_CHARS_BASE(code)) {
     r_err(
-      reader, SERD_ERR_BAD_SYNTAX, "invalid character U+%04X in name\n", code);
+      reader, SERD_ERR_BAD_SYNTAX, "invalid character U+%04lX in name\n", code);
     if (reader->strict) {
       return SERD_ERR_BAD_SYNTAX;
     }
@@ -512,7 +512,7 @@ read_PN_CHARS(SerdReader* const reader, const Ref dest)
 
   if (!is_PN_CHARS(code)) {
     return r_err(
-      reader, SERD_ERR_BAD_SYNTAX, "invalid character U+%04X in name\n", code);
+      reader, SERD_ERR_BAD_SYNTAX, "invalid character U+%04lX in name\n", code);
   }
 
   return st;
@@ -764,7 +764,7 @@ read_IRIREF(SerdReader* const reader, Ref* const dest)
         *dest = pop_node(reader, *dest);
         return r_err(reader,
                      SERD_ERR_BAD_SYNTAX,
-                     "invalid escaped IRI character U+%04X\n",
+                     "invalid escaped IRI character U+%04lX\n",
                      code);
       default:
         break;
