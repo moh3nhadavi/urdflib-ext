@@ -263,11 +263,11 @@ write_character(SerdWriter* writer, const uint8_t* utf8, size_t* size)
   }
 
   if (c <= 0xFFFF) {
-    snprintf(escape, sizeof(escape), "\\u%04X", c);
+    snprintf(escape, sizeof(escape), "\\u%04lX", c);
     return sink(escape, 6, writer);
   }
 
-  snprintf(escape, sizeof(escape), "\\U%08X", c);
+  snprintf(escape, sizeof(escape), "\\U%08lX", c);
   return sink(escape, 10, writer);
 }
 
